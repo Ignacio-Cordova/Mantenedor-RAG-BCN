@@ -3763,9 +3763,9 @@ COPY public.fuente (id, nombre, tipo, estado_indexacion, log_error, id_externo_v
 --
 
 COPY public.index_method (id, nombre, descripcion, crdate) FROM stdin;
-1	Recursive Character Splitter	Divide por párrafos respetando estructura	2026-02-16 12:36:23.235418
-2	Simple Line Splitter	Corte duro por salto de línea	2026-02-16 12:36:23.235418
-3	Fragmentación por Tamaño Fijo (Fixed-Size)	Corta el texto estrictamente según el tamaño definido en el dataset (por caracteres o palabras). Es muy rápido, pero puede cortar oraciones o ideas a la mitad.	2026-02-27 12:14:24.537275
+1	Fragmentación Híbrida Adaptativa	Agrupa párrafos respetando la estructura del texto hasta el límite definido y aplica ventana deslizante con solapamiento (overlap) cuando un párrafo supera el tamaño máximo.	2026-02-16 12:36:23.235418
+2	Fragmentación por Párrafo	Separa el contenido en bloques a partir de saltos de línea conservando cada párrafo no vacío.	2026-02-16 12:36:23.235418
+3	Fragmentación por Tamaño Fijo	Divide el texto en bloques de una cantidad fija de palabras con solapamiento (overlap) configurable; es rápido, pero puede cortar ideas o frases a la mitad.	2026-02-27 12:14:24.537275
 \.
 
 
