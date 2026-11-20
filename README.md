@@ -36,8 +36,8 @@ Sigue estos pasos para compilar e inicializar todo el ecosistema (bases de datos
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <URL_DE_TU_REPOSITORIO>
-   cd <NOMBRE_DE_LA_CARPETA>
+   git clone <https://github.com/Ignacio-Cordova/Mantenedor-RAG-BCN/>
+   cd <Mantenedor-RAG-BCN>
    ```
 
 2. **Levantar el sistema:**
