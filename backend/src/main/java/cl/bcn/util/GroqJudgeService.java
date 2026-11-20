@@ -20,11 +20,7 @@ public class GroqJudgeService {
     private static final String MODEL_NAME = "openai/gpt-oss-120b";
 
     private static final String[] GROQ_API_KEYS = {
-        "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",
-        "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",
-        "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",
-        "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",
-        "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"
+        "sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     };
     private static int indiceKeyActual = 0;
 
