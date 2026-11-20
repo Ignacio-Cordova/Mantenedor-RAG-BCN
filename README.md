@@ -1,5 +1,3 @@
-# Mantenedor-RAG-BCN
-
 # Mantenedor RAG - Biblioteca del Congreso Nacional (BCN)
 
 **Proyecto de Título:** Implementación de Búsqueda Híbrida y Segmentación Estructural para un Mantenedor RAG.  
@@ -9,7 +7,7 @@ Este repositorio contiene el código fuente completo y los scripts de despliegue
 
 ---
 
-## 🏗️ Arquitectura y Stack Tecnológico
+## Arquitectura y Stack Tecnológico
 
 El proyecto está diseñado bajo una arquitectura modular contenerizada y orquestada completamente mediante Docker.
 
@@ -21,7 +19,7 @@ El proyecto está diseñado bajo una arquitectura modular contenerizada y orques
 
 ---
 
-## ⚙️ Requisitos Previos
+## Requisitos Previos
 
 Para ejecutar este sistema en cualquier equipo desde cero, **solo necesitas tener instalado**:
 
@@ -32,7 +30,7 @@ Para ejecutar este sistema en cualquier equipo desde cero, **solo necesitas tene
 
 ---
 
-## 🚀 Instrucciones de Despliegue
+## Instrucciones de Despliegue
 
 Sigue estos pasos para compilar e inicializar todo el ecosistema (bases de datos, APIs, frontend y descarga de modelos de Inteligencia Artificial):
 
@@ -51,7 +49,7 @@ Sigue estos pasos para compilar e inicializar todo el ecosistema (bases de datos
 
 ---
 
-## ⚠️ Resolución de Problemas (Troubleshooting)
+## Resolución de Problemas (Troubleshooting)
 
 ### Falla en la descarga de los Modelos de Ollama (Error 503 / Timeout)
 Al ejecutar el proyecto por primera vez, el sistema intentará descargar automáticamente `gemma3:4b` y `qwen3-embedding:8b`. Si tu conexión es inestable o los servidores de Ollama se saturan, el contenedor `rag_ollama_init` fallará y detendrá el despliegue del Backend/Frontend.
@@ -75,7 +73,7 @@ Si esto ocurre, el problema se soluciona terminando la descarga manualmente:
 
 ---
 
-## 🌐 Accesos y Puertos
+## Accesos y Puertos
 
 Una vez que el despliegue finalice exitosamente, los servicios estarán disponibles en los siguientes enlaces locales:
 
@@ -86,7 +84,7 @@ Una vez que el despliegue finalice exitosamente, los servicios estarán disponib
 
 ---
 
-## 📁 Estructura del Repositorio
+## Estructura del Repositorio
 
 * `/frontend`: Código fuente Angular (Vistas, Componentes y Servicios). Dockerfile Multi-stage.
 * `/backend`: Código fuente Java, dependencias y binario compilado `.war` para Apache Tomcat.
