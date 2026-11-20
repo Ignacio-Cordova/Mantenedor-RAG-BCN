@@ -1,0 +1,22 @@
+
+<app-ui-modal 
+    [visible]="modalVisible" 
+    (close)="cerrarModal()"
+    [dataset]="datasetSeleccionado"
+    (datasetActualizado)="datasetList.cargarDatasets()"
+    >
+</app-ui-modal>
+
+<div class="home-body">
+    <app-header (abrirCreacion)="abrirCreacion()"
+    (abrirAjustesGlobales)="abrirAjustesGlobales()">
+
+    </app-header>
+
+    <app-dataset-list 
+    (abrirAjustes)="notificarAjustes()" 
+    (abrirConfirmacion)="notificarConfirmacion()" 
+    (datasetSeleccionado)="datasetSeleccionado = $event"
+    #datasetList
+    ></app-dataset-list>
+</div>

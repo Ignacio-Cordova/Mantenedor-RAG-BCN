@@ -1,0 +1,105 @@
+<div class="contenedor">
+    <div class="confirmacion-container" [ngSwitch]="tipoElemento">
+        <div *ngSwitchCase="'dataset'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas eliminar este dataset?</h5>
+            </div>
+
+            <div class="modal-confirmacion-body">
+                
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreDataset" [(ngModel)]="dataset.nombre" disabled />
+                </div>
+            </div>
+
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-danger" (click)="confirmar()">Eliminar</button>  
+            </div>
+        </div>
+        <div *ngSwitchCase="'fuente'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas eliminar esta fuente?</h5>
+            </div>
+
+            <div class="modal-confirmacion-body">
+                
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreFuente" [(ngModel)]="fuente.nombre" disabled />
+                </div>
+            </div>
+
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-danger" (click)="confirmar()">Eliminar</button>  
+            </div>
+        </div>
+        <div *ngSwitchCase="'reindexar'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas reindexar este dataset?</h5>
+            </div>
+            <div class="modal-confirmacion-body">
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreDataset" [(ngModel)]="dataset.nombre" disabled />
+                </div>
+            </div>
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-warning" (click)="confirmar()">Reindexar</button>  
+            </div>
+        </div>
+        <div *ngSwitchCase="'reindexarExito'">
+            <div class="modal-confirmacion-header">
+                <h5>Reindexación exitosa</h5>
+            </div>
+        </div>
+        <div *ngSwitchCase="'api'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas eliminar esta API?</h5>
+            </div>
+            <div class="modal-confirmacion-body">
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreApi" [(ngModel)]="api.nombreProveedor" disabled />
+                </div>
+            </div>
+
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-danger" (click)="confirmar()">Eliminar</button>  
+            </div>
+        </div>
+        <div *ngSwitchCase="'conexion'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas eliminar esta conexión?</h5>
+            </div>
+            <div class="modal-confirmacion-body">
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreConexion" [(ngModel)]="conexion.nombre" disabled />
+                </div>
+            </div>
+
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-danger" (click)="confirmar()">Eliminar</button>  
+            </div>
+        </div>
+        <div *ngSwitchCase="'modelo_llm'">
+            <div class="modal-confirmacion-header">
+                <h5>¿Estás seguro de que deseas eliminar este modelo LLM?</h5>
+            </div>
+            <div class="modal-confirmacion-body">
+                <div class="informacion-dataset">
+                    <input class="form-control" type="text" id="nombreModeloLlm" [(ngModel)]="modeloLlm.nombre" disabled />
+                </div>
+            </div>
+
+            <div class="modal-confirmacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-danger" (click)="confirmar()">Eliminar</button>  
+            </div>
+        </div>
+        <div class="alert alert-danger mt-2" *ngIf="mensajeError">
+            {{ mensajeError }}
+        </div>
+    </div>
+</div>

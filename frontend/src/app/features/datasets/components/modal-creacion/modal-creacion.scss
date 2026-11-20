@@ -1,0 +1,60 @@
+.contenedor{
+    width: 450px;
+    min-height: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 15px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.contenedor-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.contenedor > [ngSwitch],
+.contenedor > div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.modal-creacion-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-creacion-body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-creacion-footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-top: auto;
+    gap: 10px;
+}
+.modal-creacion-footer button{
+    flex: 1;
+}
+
+.fuente{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.fuente button{
+    width: 100px;
+}

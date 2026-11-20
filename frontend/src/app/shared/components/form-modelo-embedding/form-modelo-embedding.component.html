@@ -1,0 +1,38 @@
+<div class="form-container" *ngIf="modeloEmbeddingSeleccionado">
+    <div class="form-elemnt">
+        <label>Nombre técnico</label>
+        <input type="text" class="form-control" maxlength="100"
+               [(ngModel)]="modeloEmbeddingSeleccionado.nombreTecnico">
+        <span *ngIf="!modeloEmbeddingSeleccionado.nombreTecnico" class="text-danger">
+            Este campo es obligatorio
+        </span>
+    </div>
+    <div class="form-elemnt">
+        <label>Dimensiones</label>
+        <input type="number" class="form-control"
+               [(ngModel)]="modeloEmbeddingSeleccionado.dimensiones">
+        <span *ngIf="!modeloEmbeddingSeleccionado.dimensiones" class="text-danger">
+            Este campo es obligatorio
+        </span>
+    </div>
+    <div class="form-elemnt">
+        <label>Máximo de tokens</label>
+        <input type="number" class="form-control"
+               [(ngModel)]="modeloEmbeddingSeleccionado.maxTokensInput">
+        <span *ngIf="!modeloEmbeddingSeleccionado.maxTokensInput" class="text-danger">
+            Este campo es obligatorio
+        </span>
+    </div>
+    <div class="form-elemnt">
+        <label>Proveedor de API</label>
+        <select class="form-select" [(ngModel)]="modeloEmbeddingSeleccionado.idApi">
+            <option [ngValue]="0" disabled>Seleccione un proveedor</option>
+            <option *ngFor="let api of apis" [ngValue]="api.id">
+                {{ api.nombreProveedor }}
+            </option>
+        </select>
+        <span *ngIf="!modeloEmbeddingSeleccionado.idApi" class="text-danger">
+            Este campo es obligatorio
+        </span>
+    </div>
+</div>

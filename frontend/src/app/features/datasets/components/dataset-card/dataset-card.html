@@ -1,0 +1,13 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <div class="card-top">
+        <h5 class="card-title">{{ dataset.nombre }}</h5>
+        <div class="icons">
+            <span class="material-icons" (click)="abrirModalAjustes()" (click)="seleccionarDataset()">edit</span>
+            <span class="material-icons" (click)="abrirModalConfirmacion()" (click)="seleccionarDataset()">delete</span>
+        </div>
+    </div>
+    <p class="card-text">{{ dataset.tamanoChunk }} ° {{ dataset.collectionName }} </p>
+    <p class="card-text">{{ dataset.crdate }}</p>
+  </div>
+</div>

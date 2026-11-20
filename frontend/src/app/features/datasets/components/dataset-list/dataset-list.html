@@ -1,0 +1,11 @@
+<div class="dataset-list">
+    <ul>
+        <app-dataset-card *ngFor="let item of datasets" 
+        [dataset]="item"
+        (abrirAjustes)="notificarAjustes()"
+        (abrirConfirmacion)="notificarConfirmacion()"
+        (datasetSeleccionado)="emitirDatasetSeleccionado($event)"
+        >
+        </app-dataset-card>
+    </ul>
+</div>

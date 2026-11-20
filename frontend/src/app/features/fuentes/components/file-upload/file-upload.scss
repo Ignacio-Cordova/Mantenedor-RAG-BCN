@@ -1,0 +1,20 @@
+.container {
+  position: relative;
+}
+
+.drop-zone {
+  border: 2px dashed var(--border-soft);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.drop-zone.hovering {
+  border-color: var(--brand-info);
+  background-color: var(--brand-info-soft);
+  color: var(--brand-info);
+}
+
+.icono-upload {
+  font-size: 3rem;
+  color: var(--text-muted);
+}

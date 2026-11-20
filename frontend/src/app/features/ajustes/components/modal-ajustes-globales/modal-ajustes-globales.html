@@ -1,0 +1,74 @@
+<div class="contenedor">
+    <div class="global-settings-container">
+        <div class="modal-ajustes-header">
+            <div class="titulo">
+                <h3>Ajustes</h3>
+            </div>
+            <div class="cerrar-btn">
+                <app-exit-button (cerrarModal)="cerrarModal()"></app-exit-button>
+            </div>
+        </div>
+
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a 
+                class="nav-link active" 
+                aria-current="page" 
+                [class.active]="seccionActual === 'Apis'"
+                (click)="seccionActual = 'Apis'"
+                style="cursor: pointer;"
+                >Apis</a>
+            </li>
+            <li class="nav-item">
+                <a 
+                class="nav-link" 
+                [class.active]="seccionActual === 'ModelosLLM'"
+                (click)="seccionActual = 'ModelosLLM'"
+                style="cursor: pointer;"
+                >Modelos LLM</a>
+            </li>
+            <li class="nav-item">
+                <a 
+                class="nav-link" 
+                [class.active]="seccionActual === 'Conexiones'"
+                (click)="seccionActual = 'Conexiones'"
+                style="cursor: pointer;"
+                >Conexiones</a>
+            </li>
+        </ul>   
+        <div class="switch-container" [ngSwitch]="seccionActual">
+            <div class="switch-panel" *ngSwitchCase="'Apis'">
+               <app-ajustes-globales-apis
+                #apisComponent
+                (eliminarApi)="abrirModalConfirmacionApi($event)">
+                </app-ajustes-globales-apis>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'ModelosLLM'">
+                <app-ajustes-globales-modelos
+                #modelosLlmComponent
+                (eliminarModelo)="abrirModalConfirmacionModeloLlm($event)">
+                </app-ajustes-globales-modelos>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'Conexiones'">
+                <app-ajustes-globales-conexiones
+                #conexionesComponent
+                (eliminarConexion)="abrirModalConfirmacionConexion($event)"
+                ></app-ajustes-globales-conexiones>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-interno" *ngIf="mostrarConfirmacion">
+        <app-modal-confirmacion
+        *ngIf="mostrarConfirmacion"
+        [api]="apiSeleccionada"
+        [conexion]="conexionSeleccionada"
+        [modeloLlm]="modeloLlmSeleccionado"
+        [modeloEmbedding]="modeloEmbeddingSeleccionado"
+        [tipoElemento]="tipoElementoSeleccionado"
+        (cerrar)="cerrarConfirmacion()"
+        (datasetActualizado)="recargarApis(); recargarConexiones(); recargarModelosLlm()">
+        </app-modal-confirmacion>
+    </div>
+</div>

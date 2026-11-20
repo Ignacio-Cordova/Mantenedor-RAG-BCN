@@ -1,0 +1,29 @@
+<div class="fondo" *ngIf="visible">
+    <app-modal-creacion 
+    *ngIf="visible === 'creacion'" 
+    (cerrar)="cerrar()"
+    (datasetActualizado)="actualizarDataset(dataset)"
+    ></app-modal-creacion>
+
+    <app-modal-ajustes 
+    *ngIf="visible === 'ajustes'" 
+    (cerrar)="cerrar()" 
+    [dataset]="dataset" 
+    (datasetActualizado)="actualizarDataset(dataset)"
+    ></app-modal-ajustes>
+
+    <app-modal-ajustes-globales
+    *ngIf="visible === 'ajustesGlobales'"
+    (cerrar)="cerrar()"
+    [dataset]="dataset">
+    </app-modal-ajustes-globales>
+
+    <app-modal-confirmacion 
+        *ngIf="visible === 'confirmacion'" 
+        [tipoElemento]="'dataset'" 
+        (cerrar)="cerrar()" 
+        [dataset]="dataset"
+        (datasetActualizado)="actualizarDataset(dataset)"
+    ></app-modal-confirmacion>
+
+</div>

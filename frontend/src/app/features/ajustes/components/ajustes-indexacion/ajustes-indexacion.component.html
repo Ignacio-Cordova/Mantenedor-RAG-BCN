@@ -1,0 +1,42 @@
+<div class="modal-ajustes-body">
+    <div class="form-elemnt">
+    Tamaño chunk: <input type="number" class="form-control" [(ngModel)]="datasetModificado.tamanoChunk"/>
+</div>
+<div class="form-elemnt">
+    Overlap: <input type="number" class="form-control" [(ngModel)]="datasetModificado.overlap"/>
+</div>
+<div class="form-elemnt">
+    Top K: <input type="number" class="form-control" [(ngModel)]="datasetModificado.topK"/>
+</div>
+<div class="form-elemnt">
+    Modelo Embedding:
+    <select
+        name="modeloEmbedding"
+        id="modelo_embedding"
+        [(ngModel)]="datasetModificado.idModeloEmbedding"
+        class="form-select"
+        disabled>
+        <option
+            *ngFor="let modelo of modelosEmbeddingDisponibles"
+            [ngValue]="modelo.id">
+            {{ modelo.nombreTecnico }}
+        </option>
+    </select>
+</div>
+<div class="form-elemnt">
+    Metodo recuperacion: <select name="retrievalMethod" id="retrieval_method" [(ngModel)]="datasetModificado.idRetrievalMethod" class="form-select">
+        <option *ngFor="let metodo of metodosRecuperacionDisponibles" [ngValue]="metodo.id">{{ metodo.nombre }}</option>
+    </select>
+</div>
+<div class="form-elemnt">
+    Metodo indexacion: <select name="indexMethod" id="index_method" disabled [(ngModel)]="datasetModificado.idIndexMethod" class="form-select">
+        <option *ngFor="let indexMethod of metodosIndexacionDisponibles" [ngValue]="indexMethod.id">{{ indexMethod.nombre }}</option>
+    </select>
+</div> 
+</div>
+<div class="modal-ajustes-footer">
+<div class="modal-ajustes-btns">
+    <button class="btn btn-secondary" (click)="onCerrarModal()">Cerrar</button>
+    <button class="btn btn-primary" (click)="onGuardarCambios()">Guardar cambios</button>
+</div>
+</div>

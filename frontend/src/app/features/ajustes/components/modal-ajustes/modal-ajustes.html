@@ -1,0 +1,98 @@
+<div class="contenedor">
+    <div class="settings-container">
+        <div class="modal-ajustes-header">
+            <div class="titulo">
+                <h3>Ajustes</h3>
+            </div>
+            <div class="cerrar-btn">
+                <app-exit-button (cerrarModal)="cerrarModal()"></app-exit-button>
+            </div>
+        </div>
+
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" 
+                   [class.active]="seccionActual === 'generales'"
+                   (click)="seccionActual = 'generales'"
+                   style="cursor: pointer;">Generales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="seccionActual === 'indexacion'"
+                   (click)="seccionActual = 'indexacion'"
+                   style="cursor: pointer;">Indexación</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   [class.active]="seccionActual === 'fuentes' || seccionActual === 'visorFuentes' || seccionActual === 'agregarFuente'"
+                   (click)="seccionActual = 'fuentes'"
+                   style="cursor: pointer;">Fuentes</a>
+            </li>
+        </ul>   
+
+        <div class="switch-container" [ngSwitch]="seccionActual">
+            
+            <div class="switch-panel" *ngSwitchCase="'generales'">
+                <app-ajustes-generales
+                    *ngIf="dataset"
+                    [datasetModificado]="datasetModificado"
+                    [apisDisponibles]="apisDisponibles"
+                    [modelosLlmDisponibles]="modelosLlmDisponibles"
+                    (apiCambiada)="getModelosLlmPorApi($event)"
+                    (modeloCambiado)="getModeloLlmSeleccionado($event)"
+                    (guardar)="guardarCambios()"
+                    (cerrar)="cerrarModal()">
+                </app-ajustes-generales>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'indexacion'">
+                <app-ajustes-indexacion
+                    [datasetModificado]="datasetModificado"
+                    [modelosEmbeddingDisponibles]="modelosEmbeddingDisponibles"
+                    [metodosRecuperacionDisponibles]="metodosRecuperacionDisponibles"
+                    [metodosIndexacionDisponibles]="metodosIndexacionDisponibles"
+                    (guardar)="guardarCambios()"
+                    (cerrar)="cerrarModal()">
+                </app-ajustes-indexacion>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'fuentes'">
+                <app-ajustes-fuentes-tab
+                    [tiposFuentes]="tiposFuentes"
+                    (verFuentes)="verFuentes($event); tipoFuenteSeleccionada = $event"
+                    (abrirArchivo)="abrirModalAgregarFuente('ARCHIVO')"
+                    (abrirConexion)="seccionActual = 'agregarFuente'; tipoFuenteSeleccionada = $event"
+                    (indexar)="indexarFuentes()">
+                </app-ajustes-fuentes-tab>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'visorFuentes'">
+                <app-detalle-fuente
+                    [datasetId]="dataset.id"
+                    [tipoFuente]="tipoFuenteSeleccionada"
+                    (volver)="seccionActual = 'fuentes'">
+                </app-detalle-fuente>
+            </div>
+
+            <div class="switch-panel" *ngSwitchCase="'agregarFuente'">
+                <app-modal-agregar-fuente
+                    [tipoFuenteSeleccionada]="tipoFuenteSeleccionada"
+                    (cerrarModal)="seccionActual = 'fuentes'"
+                    [IdDataset]="dataset.id">
+                </app-modal-agregar-fuente>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="overlay-interno" *ngIf="mostrarConfirmacion">
+        <app-modal-confirmacion 
+            *ngIf="mostrarConfirmacion"
+            [dataset]="datasetModificado"
+            [fuente]="fuenteSeleccionada"
+            [tipoElemento]="tipoElementoSeleccionado"
+            (cerrar)="mostrarConfirmacion = false"
+            (datasetActualizado)="datasetActualizado.emit()">
+        </app-modal-confirmacion>
+    </div>
+</div>

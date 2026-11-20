@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://tuckey.org/urlrewrite/
+
+-->
+<urlrewrite>
+
+
+    <outbound-rule>
+        <note>
+            The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)
+            the url /rewrite-status will be rewritten to /test/status/.
+
+            The above rule and this outbound-rule means that end users should never see the
+            url /rewrite-status only /test/status/ both in thier location bar and in hyperlinks
+            in your pages.
+        </note>
+        <from>/rewrite-status</from>
+        <to>/test/status/</to>
+    </outbound-rule>
+
+
+
+
+
+
+<!-- 
+############################################################################
+############################ NUEVOS INICIO #################################
+############################################################################
+-->
+
+
+
+
+      
+
+     <rule>
+         <id>0</id>
+         <from>^/servicio/([a-zA-Z0-9]+)$</from>
+         <to>/Servicio?__nombre_servicio_CACATUA=$1</to>
+     </rule>
+
+
+   
+
+     
+
+
+
+
+
+
+</urlrewrite>

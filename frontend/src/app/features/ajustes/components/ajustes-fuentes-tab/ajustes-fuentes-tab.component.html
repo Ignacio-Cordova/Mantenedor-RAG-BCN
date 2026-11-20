@@ -1,0 +1,36 @@
+<div class="modal-ajustes-body">
+    <div *ngFor="let type of tiposFuentes" class="form-elemnt">
+        <div class="d-flex align-items-center">
+            <span>{{ type }}</span>
+        </div>
+        <button class="btn btn-sm btn-primary ms-2" (click)="onVerFuentes(type.toUpperCase())">Ver</button>
+    </div>
+</div>
+<div class="modal-ajustes-footer">
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-plus-circle"></i> Agregar Fuente
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            
+            <li>
+            <a class="dropdown-item" style="cursor: pointer;" (click)="onAbrirArchivo()">
+                Subir Archivo
+            </a>
+            </li>
+            
+            <li>
+            <a class="dropdown-item" style="cursor: pointer;" (click)="onAbrirConexion('BASE_DE_DATOS')">
+                Conectar Base de Datos
+            </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" style="cursor: pointer;" (click)="onAbrirConexion('SERVICIO_WEB')">
+                    Conectar a Servicio Web
+                </a>
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-primary" (click)="onIndexarTodo()">Indexar Todo</button>
+</div>

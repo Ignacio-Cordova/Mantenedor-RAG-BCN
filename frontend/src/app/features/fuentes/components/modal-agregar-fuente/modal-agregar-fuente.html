@@ -1,0 +1,148 @@
+<div class="contenedor">
+    <div class="add-container" [ngSwitch]="tipoFuenteSeleccionada">
+        <div *ngIf="validationError" class="inline-error" role="alert">
+            {{ validationError }}
+        </div>
+        <div class="modal-content-wrapper" *ngSwitchCase="'ARCHIVO'">
+            <div class="modal-agregar-fuente-body">
+                <app-file-upload
+                [datasetId]="IdDataset"
+                (cerrarModal)="cerrarModal.emit()"
+                ></app-file-upload>
+            </div>
+        </div>
+        <div class="modal-content-wrapper" *ngSwitchCase="'BASE_DE_DATOS'">
+            <div class="modal-body-scroll" [ngSwitch]="pasoActual">
+                <div *ngSwitchCase="1" class="form-container">
+                    <div class="form-elemnt">
+                        <label class="form-label">Nombre de la conexión:</label>
+                        <select class="form-select" [(ngModel)]="conexionIdSeleccionada" (change)="seleccionarConexion(conexionIdSeleccionada)">
+                            <option [value]="-1">-- Crear Nueva Conexión --</option>
+                            <option *ngFor="let conexion of conexionesGuardadas" [value]="conexion.id">{{ conexion.nombre }}</option>
+                        </select>
+                    </div>                   
+                    <div class="form-elemnt">
+                        <label for="apiDataset">Tipo:</label>
+                        <select class="form-select" [(ngModel)]="conexionSeleccionada.motor" (change)="tipoSeleccionado = conexionSeleccionada.motor.toLowerCase()" [disabled]="conexionSeleccionada.id !== 0" required>
+                            <option *ngFor="let database of tiposBasesDeDatosDisponibles" [value]="database.toLowerCase()">{{ database.toLowerCase() }} </option>
+                        </select>
+                    </div>
+                    <div *ngIf="tipoSeleccionado === 'postgresql'"
+                         class="form-elemnt">
+                        <label>Host:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.host" [disabled]="conexionSeleccionada.id !== 0" required />
+                    </div>
+                    <div *ngIf="tipoSeleccionado === 'postgresql'" class="form-elemnt">
+                        <label>Puerto:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.puerto" [disabled]="conexionSeleccionada.id !== 0" required />
+                    </div>
+                    <div *ngIf="tipoSeleccionado === 'postgresql'" class="form-elemnt">
+                        <label>Usuario:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.usuario" [disabled]="conexionSeleccionada.id !== 0" required />
+                    </div>
+                    <div *ngIf="tipoSeleccionado === 'postgresql'" class="form-elemnt">
+                        <label>Contraseña:</label>
+                        <input class="form-control" type="password" maxlength="100" [(ngModel)]="conexionSeleccionada.password" [disabled]="conexionSeleccionada.id !== 0" required />
+                    </div>
+                    <div *ngIf="tipoSeleccionado !== ''" class="form-elemnt">
+                        <label>Nombre de la base de datos:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.nombre" [disabled]="conexionSeleccionada.id !== 0" required />
+                    </div>
+                </div>
+                <div *ngSwitchCase="2" class="form-container">
+                    <div class="form-elemnt">
+                        <label>Modo de extracción:</label>
+                        <nav class="nav nav-pills flex-column flex-sm-row mb-3">
+                            <a class="flex-sm-fill text-sm-center nav-link" [ngClass]="{'active': pestanaSeleccionada === 'QUERY'}" (click)="pestanaSeleccionada = 'QUERY'; nuevaBaseDeDatos.modoExtraccion = 'QUERY'" style="cursor: pointer;">Query</a>
+                            <a class="flex-sm-fill text-sm-center nav-link" [ngClass]="{'active': pestanaSeleccionada === 'TABLA'}" (click)="pestanaSeleccionada = 'TABLA'; nuevaBaseDeDatos.modoExtraccion = 'TABLA'" style="cursor: pointer;">Tabla</a>
+                        </nav>
+                    </div>
+
+                    <div *ngIf="pestanaSeleccionada === 'TABLA'" class="form-elemnt">
+                        <label>Tabla objetivo:</label>
+                        <select class="form-select" [(ngModel)]="nuevaBaseDeDatos.tablaObjetivo">
+                            <option *ngFor="let tabla of tablasDisponibles" [value]="tabla">{{ tabla }}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="pestanaSeleccionada === 'QUERY'" class="form-elemnt">
+                        <label>Query SQL:</label>
+                        <textarea class="form-control" rows="5" maxlength="1000" [(ngModel)]="nuevaBaseDeDatos.querySql" required></textarea>
+                    </div>
+                    <div class="form-elemnt">
+                        <label>Columna objetivo:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="nuevaBaseDeDatos.columnaContenido" required />
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-primary mt-3" (click)="getColumns()">Probar Conexion</button>
+                        <div *ngIf="probandoConexion" class="mt-2">
+                            <span class="spinner-border spinner-border-sm"></span> Probando conexión...
+                        </div>
+                        <div *ngIf="filasObtenidas.length > 0" class="mt-2 alert alert-success">
+                            Conexión exitosa. Columnas obtenidas: {{ filasObtenidas.join(', ') }}
+                        </div>
+                        <div *ngIf="filasObtenidas.length === 0 && conexionProbada" class="mt-2 alert alert-danger">
+                            No se pudieron obtener columnas. Revisa tu conexión y configuración.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-add-footer">
+                <button class="btn btn-secondary" *ngIf="pasoActual === 2" (click)="goToStep(1)">Anterior</button>
+                <button class="btn btn-primary" *ngIf="pasoActual === 1" (click)="siguientePaso(); getTablas()" >Siguiente</button>
+                <button class="btn btn-primary" *ngIf="pasoActual === 2" (click)="apagarConexion(); crearBaseDeDatos()">Finalizar</button>
+            </div>
+
+        </div>
+         <div class="modal-content-wrapper" *ngSwitchCase="'SERVICIO_WEB'">
+            <div class="modal-body-scroll" [ngSwitch]="pasoActual">
+                <div class="form-container" *ngSwitchCase="1">
+                    <div class="form-elemnt">
+                        <label for="apiNombre">Nombre de la API:</label>
+                        <input class="form-control" id="apiNombre" type="text" maxlength="100" [(ngModel)]="nuevoServicioWeb.nombre" required />
+                    </div>
+                    <div class="form-elemnt">
+                        <label for="apiEndpoint">Endpoint:</label>
+                        <input class="form-control" id="apiEndpoint" type="text" maxlength="500" [(ngModel)]="nuevoServicioWeb.urlEndpoint" required />
+                    </div>
+                    <div class="form-elemnt">
+                        <label for="apiMetodo"> Metodo HTTP:</label>
+                            <select class="form-select" id="apiMetodo" [(ngModel)]="nuevoServicioWeb.metodoHttp" required>
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                                <option value="PUT">PUT</option>
+                                <option value="DELETE">DELETE</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="form-container" *ngSwitchCase="2">
+                    <div class="form-elemnt">
+                        <label for="apiHeaders">Nombre del parámetro:</label>
+                        <input class="form-control" id="apiHeaders" type="text" maxlength="100" [(ngModel)]="nombreApi" required>
+                    </div>
+                    <div class="form-elemnt">
+                        <label for="apiParams">Valor:</label>
+                        <input class="form-control" id="apiParams" type="text" maxlength="100" [(ngModel)]="valorApi" required>
+                    </div>
+                    <div *ngIf="nuevoServicioWeb.metodoHttp === 'POST' || nuevoServicioWeb.metodoHttp === 'PUT'" class="form-elemnt">
+                        <label for="apiBody">Body:</label>
+                        <textarea class="form-control" id="apiBody" rows="3" maxlength="1000" [(ngModel)]="nuevoServicioWeb.bodyPayload" required></textarea>
+                    </div>
+                    <div class="form-elemnt">
+                        <label for="apiRespuesta">Ruta Principal:</label>
+                        <input class="form-control" id="apiRespuesta" type="text" maxlength="100" [(ngModel)]="nuevoServicioWeb.rutaTexto" required />
+                    </div>
+                    <div class="form-elemnt">
+                        <label>Metadatos:</label>
+                        <input class="form-control" type="text" maxlength="100" [(ngModel)]="nuevoServicioWeb.rutasMetadatos" required />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-add-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal.emit()">Cerrar</button>
+                <button class="btn btn-primary" *ngIf="pasoActual === 1" (click)="siguientePaso()">Siguiente</button>
+                <button class="btn btn-primary" *ngIf="pasoActual === 2" (click)="crearApi()">Finalizar</button>
+            </div>
+         </div>
+    </div>
+</div>

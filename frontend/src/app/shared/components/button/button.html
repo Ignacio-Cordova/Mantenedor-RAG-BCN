@@ -1,0 +1,4 @@
+<button class="btn btn-primary" [ngClass]="{'btn-icon': tipo === 'icon'}" [disabled]="disabled">
+  <i *ngIf="icon" class="material-icons">{{ icon }}</i>
+  <span *ngIf="!icon">{{ text }}</span>
+</button>

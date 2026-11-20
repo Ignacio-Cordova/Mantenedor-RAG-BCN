@@ -1,0 +1,69 @@
+<div class="detalle-fuente-container">
+    <div class="detalle-fuente-table">
+        <div *ngIf="fuentesActuales.length === 0" class="detalle-fuente-empty">
+            No se encontraron {{ nombreTipoFuente }} en el dataset seleccionado.
+        </div>
+
+        <table *ngIf="fuentesActuales.length > 0" mat-table [dataSource]="fuentesActuales" class="mat-table">
+        
+        <ng-container matColumnDef="id">
+            <th mat-header-row *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element?.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="modoExtraccion">
+            <th mat-header-row *matHeaderCellDef> Extracción </th>
+            <td mat-cell *matCellDef="let element"> {{element?.modoExtraccion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+            <th mat-header-row *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element?.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="metodoHttp">
+            <th mat-header-row *matHeaderCellDef> Método HTTP </th>
+            <td mat-cell *matCellDef="let element"> {{element?.metodoHttp || element?.metodo_http || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+            <th mat-header-row *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element?.estadoIndexacion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-row *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+                <span class="material-icons icon-sync" (click)="onSincronizar(element.id)" title="Sincronizar">sync</span>
+                <span class="material-icons icon-delete" (click)="onEliminar(element.id)" title="Eliminar">delete</span>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnasDinamicas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnasDinamicas;"></tr>
+        </table>
+    </div>
+
+    <hr class="detalle-fuente-divider">
+
+    <div class="detalle-fuente-footer">
+        <button class="btn btn-secondary" (click)="volver.emit()">Volver</button>
+        <mat-paginator *ngIf="fuentesActuales.length > 0"
+            [length]="cantidadFuentes"
+            [pageSize]="pageSize"
+            [pageIndex]="pageIndex"
+            [pageSizeOptions]="[4, 8, 16]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
+
+    <div class="overlay-interno" *ngIf="mostrarConfirmacion">
+        <app-modal-confirmacion
+            [fuente]="fuenteSeleccionada"
+            [tipoElemento]="'fuente'"
+            [tipoFuente]="tipoFuente"
+            (cerrar)="mostrarConfirmacion = false"
+            (datasetActualizado)="cargarDatosYColumnas(); mostrarConfirmacion = false">
+        </app-modal-confirmacion>
+    </div>
+</div>

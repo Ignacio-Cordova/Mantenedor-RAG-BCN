@@ -1,0 +1,96 @@
+<div class="contenedor">
+    <div *ngIf="errorMessage" class="inline-error" role="alert">
+        {{ errorMessage }}
+    </div>
+    <div [ngSwitch]="pasoActual">
+    
+        <div class="contenedor-form" *ngSwitchCase="1">
+            <div class="modal-creacion-header">
+                <h4>Crear nuevo dataset</h4>
+                <app-exit-button (cerrarModal)="cerrarModal()"></app-exit-button>
+            </div>
+
+            <div class="modal-creacion-body">
+                <div>
+                    <label for="nombreDataset">Nombre:</label>
+                    <input class="form-control" type="text" id="nombreDataset" maxlength="100" [(ngModel)]="nuevoDataset.nombre" />
+                </div>
+                <div>
+                    <label for="apiDataset">API:</label>
+                    <select class="form-select" id="apiDataset" [(ngModel)]="nuevoDataset.idApi" (change)="getModelosLlmByApiId(nuevoDataset.idApi)">
+                        <option *ngFor="let api of apisDisponibles" [value]="api.id">{{ api.nombreProveedor }} </option>
+                    </select>
+                </div>  
+                <div>
+                    <label for="modeloLlmDataset">Modelo LLM:</label>
+                    <select class="form-select" id="modeloLlmDataset" [(ngModel)]="nuevoDataset.idModeloLlm">
+                        <option *ngFor="let modelo of modelosLlmDisponibles" [value]="modelo.id">{{ modelo.nombreTecnico }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-creacion-footer">
+                <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primary" (click)="siguientePaso()">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="contenedor-form" *ngSwitchCase="2">
+            <div class="modal-creacion-header">
+                <h4>Configuración de indexacion</h4>
+            </div>
+            <div class="modal-creacion-body">
+                <div>
+                    <label for="tamanoDataset">Tamaño del dataset:</label>
+                    <input class="form-control" type="number" id="tamanoDataset" [(ngModel)]="nuevoDataset.tamanoChunk" />
+                </div>  
+                <div>
+                    <label for="overlapDataset">Overlap:</label>
+                    <input class="form-control" type="number" id="overlapDataset" [(ngModel)]="nuevoDataset.overlap" />
+                </div>
+                <div>
+                    <label for="topKDataset">Top K:</label>
+                    <input class="form-control" type="number" id="topKDataset" [(ngModel)]="nuevoDataset.topK" />
+                </div>
+                <div>
+                    <label for="modeloEmbeddingDataset">Modelo Embedding:</label>
+                    <select
+                        class="form-select"
+                        id="modeloEmbeddingDataset"
+                        [(ngModel)]="nuevoDataset.idModeloEmbedding"
+                        disabled>
+                        <option *ngFor="let modelo of modelosEmbeddingDisponibles" [ngValue]="modelo.id">
+                            {{ modelo.nombreTecnico }}
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <label for="metodoRecuperacionDataset">Método de Recuperación:</label>
+                    <select class="form-select" id="metodoRecuperacionDataset" [(ngModel)]="nuevoDataset.idRetrievalMethod">
+                        <option *ngFor="let metodo of retrievalMethodsDisponibles" [value]="metodo.id">{{ metodo.nombre }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="metodoIndexacionDataset">Método de Indexación:</label>
+                    <select class="form-select" id="metodoIndexacionDataset" [(ngModel)]="nuevoDataset.idIndexMethod">
+                        <option *ngFor="let metodo of indexMethodsDisponibles" [value]="metodo.id">{{ metodo.nombre }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="systemPromptDataset">System Prompt:</label>
+                    <textarea
+                        class="form-control"
+                        id="systemPromptDataset"
+                        rows="5"
+                        maxlength="2000"
+                        [(ngModel)]="nuevoDataset.systemPrompt"
+                        placeholder="Describe el comportamiento operativo del asistente">
+                    </textarea>
+                </div>
+            </div>
+            <div class="modal-creacion-footer">
+                <button class="btn btn-secondary" (click)="goToStep(1)">Anterior</button>
+                <button class="btn btn-primary" (click)="crearDataset()">Crear</button>
+            </div>      
+        </div>
+    </div>
+</div>

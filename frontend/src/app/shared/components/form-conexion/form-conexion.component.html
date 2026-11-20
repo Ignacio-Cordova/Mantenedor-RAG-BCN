@@ -1,0 +1,36 @@
+<div class="form-container" *ngIf="conexionSeleccionada">                   
+    <div class="form-elemnt" >
+        <label for="apiDataset">Tipo:</label>
+        <select class="form-select" [(ngModel)]="conexionSeleccionada.motor" *ngIf="conexionSeleccionada" required>
+            <option *ngFor="let database of tiposBasesDeDatosDisponibles" [value]="database.toLowerCase()">
+                {{ database.toLowerCase() }} 
+            </option>
+        </select>
+        <span *ngIf="!conexionSeleccionada.motor" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt" *ngIf="conexionSeleccionada.motor === 'postgresql'">
+        <label>Host:</label>
+        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.host" *ngIf="conexionSeleccionada" required />
+        <span *ngIf="!conexionSeleccionada.host" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt" *ngIf="conexionSeleccionada.motor === 'postgresql'">
+        <label>Puerto:</label>
+        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.puerto" *ngIf="conexionSeleccionada" required />
+        <span *ngIf="!conexionSeleccionada.puerto" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt" *ngIf="conexionSeleccionada.motor === 'postgresql'">
+        <label>Usuario:</label>
+        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.usuario" *ngIf="conexionSeleccionada" required />
+        <span *ngIf="!conexionSeleccionada.usuario" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt" *ngIf="conexionSeleccionada.motor === 'postgresql'">
+        <label>Contraseña:</label>
+        <input class="form-control" type="password" maxlength="100" [(ngModel)]="conexionSeleccionada.password" *ngIf="conexionSeleccionada" required />
+        <span *ngIf="!conexionSeleccionada.password" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt" *ngIf="conexionSeleccionada.motor === 'postgresql'">
+        <label>Nombre de la base de datos:</label>
+        <input class="form-control" type="text" maxlength="100" [(ngModel)]="conexionSeleccionada.nombre" *ngIf="conexionSeleccionada" required />
+        <span *ngIf="!conexionSeleccionada.nombre" class="text-danger">Este campo es obligatorio</span>
+    </div>
+</div>

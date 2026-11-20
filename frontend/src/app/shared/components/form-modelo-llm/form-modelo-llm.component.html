@@ -1,0 +1,61 @@
+<div class="form-container" >                   
+    <div class="form-elemnt">
+        <label>Nombre</label>
+        <input type="text" class="form-control" maxlength="100" [value]="modeloLlmSeleccionado.nombre" *ngIf="modeloLlmSeleccionado" [(ngModel)]="modeloLlmSeleccionado.nombre">
+        <span *ngIf="!modeloLlmSeleccionado.nombre" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <label>Nombre Tecnico</label>
+        <input type="text" class="form-control" maxlength="100" [value]="modeloLlmSeleccionado.nombreTecnico" *ngIf="modeloLlmSeleccionado" [(ngModel)]="modeloLlmSeleccionado.nombreTecnico">
+        <span *ngIf="!modeloLlmSeleccionado.nombreTecnico" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <label> Endpoint</label>
+        <input type="text" class="form-control" 
+           placeholder="Ej: /api/generate o /v1/chat/completions" 
+           maxlength="500"
+           [value]="modeloLlmSeleccionado.endpoint" 
+           *ngIf="modeloLlmSeleccionado" 
+           [(ngModel)]="modeloLlmSeleccionado.endpoint"> 
+    <span *ngIf="!modeloLlmSeleccionado.endpoint" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <div class="d-flex flex-column">
+            <label>Plantilla Payload</label>
+            <span *ngIf="!modeloLlmSeleccionado.plantilla_payload" class="text-danger">Este campo es obligatorio</span>    
+        </div>
+        <textarea class="form-control" 
+              rows="6"
+              maxlength="1000"
+              [placeholder]="ejemploPlantilla"
+              *ngIf="modeloLlmSeleccionado" 
+              [(ngModel)]="modeloLlmSeleccionado.plantilla_payload"
+              style="resize: vertical; font-family: monospace;">
+        </textarea> 
+        <small class="text-muted d-block mt-1" style="font-size: 0.85em;" ngNonBindable>
+            Variables disponibles: <b>{{nombre_modelo}}</b>, <b>{{prompt_ensamblado}}</b>
+        </small>
+    </div>
+    <div class="form-elemnt">
+        <label>Ruta Respuesta</label>
+        <input type="text" class="form-control" 
+            placeholder="Ej: response o choices.0.message.content" 
+            maxlength="100"
+            [value]="modeloLlmSeleccionado.ruta_respuesta" 
+            *ngIf="modeloLlmSeleccionado" 
+            [(ngModel)]="modeloLlmSeleccionado.ruta_respuesta"> 
+        <span *ngIf="!modeloLlmSeleccionado.ruta_respuesta" class="text-danger">Este campo es obligatorio</span> 
+    </div>
+    <div class="form-elemnt">
+        <label>Limite Tokens</label>
+        <input type="text" class="form-control" maxlength="100" [value]="modeloLlmSeleccionado.limiteTokens" *ngIf="modeloLlmSeleccionado" [(ngModel)]="modeloLlmSeleccionado.limiteTokens">
+        <span *ngIf="!modeloLlmSeleccionado.limiteTokens" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <label>Api</label>
+        <select class="form-control" [value]="modeloLlmSeleccionado.idApi" *ngIf="modeloLlmSeleccionado" [(ngModel)]="modeloLlmSeleccionado.idApi">
+            <option *ngFor="let api of apis" [value]="api.id">{{ api.nombreProveedor }}</option> 
+        </select>
+        <span *ngIf="!modeloLlmSeleccionado.idApi" class="text-danger">Este campo es obligatorio</span>
+    </div>
+</div>

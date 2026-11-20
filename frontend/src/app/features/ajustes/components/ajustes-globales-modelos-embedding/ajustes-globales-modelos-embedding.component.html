@@ -1,0 +1,61 @@
+<div class="modal-ajustes-body">
+    <div class="mat-elevation-z0" *ngIf="!mostrarModalFormulario" style="margin-top: 20px;">
+        <table mat-table [dataSource]="modelosPaginados" class="mat-table">
+            <ng-container matColumnDef="nombreTecnico">
+                <th mat-header-row *matHeaderCellDef> Nombre técnico </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreTecnico}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dimensiones">
+                <th mat-header-row *matHeaderCellDef> Dimensiones </th>
+                <td mat-cell *matCellDef="let element"> {{element.dimensiones}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="maxTokensInput">
+                <th mat-header-row *matHeaderCellDef> Máx. tokens </th>
+                <td mat-cell *matCellDef="let element"> {{element.maxTokensInput}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="proveedor">
+                <th mat-header-row *matHeaderCellDef> Proveedor </th>
+                <td mat-cell *matCellDef="let element"> {{element.proveedor}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-row *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                    <span class="material-icons text-primary me-2" style="cursor: pointer;"
+                          (click)="abrirModalModeloEmbedding(element)" title="Editar">edit</span>
+                    <span class="material-icons text-danger" style="cursor: pointer;"
+                          (click)="onEliminar(element)" title="Eliminar">delete</span>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+        </table>
+
+        <mat-paginator [length]="total" [pageSize]="5"></mat-paginator>
+    </div>
+
+    <div class="mat-elevation-z0" *ngIf="mostrarModalFormulario" style="margin-top: 20px;">
+        <app-form-modelo-embedding
+            [modeloEmbeddingSeleccionado]="modeloEmbeddingSeleccionado">
+        </app-form-modelo-embedding>
+    </div>
+</div>
+
+<div class="modal-ajustes-footer">
+    <div class="modal-ajustes-btns">
+        <button class="btn btn-primary"
+                (click)="onGuardarCambios(modeloEmbeddingSeleccionado)"
+                *ngIf="mostrarModalFormulario">
+            Guardar
+        </button>
+        <button class="btn btn-primary"
+                (click)="abrirModalModeloEmbedding()"
+                *ngIf="!mostrarModalFormulario">
+            Agregar Modelo Embedding
+        </button>
+    </div>
+</div>

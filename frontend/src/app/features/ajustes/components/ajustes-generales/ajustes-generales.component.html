@@ -1,0 +1,27 @@
+<div class="modal-ajustes-body">
+    <div class="form-elemnt">
+        Nombre dataset: 
+        <input type="text" class="form-control" maxlength="100" [(ngModel)]="datasetModificado.nombre"/>
+    </div>
+    <div class="form-elemnt">
+        Api: 
+        <select name="api" id="api" [(ngModel)]="datasetModificado.idApi" class="form-select" (ngModelChange)="onApiChange($event)">
+            <option *ngFor="let api of apisDisponibles" [value]="api.id">{{ api.nombreProveedor }}</option>
+        </select>
+    </div>
+    <div class="form-elemnt">
+        ModeloLLM: <select name="modelo" id="modelo" [(ngModel)]="datasetModificado.idModeloLlm" class="form-select" (ngModelChange)="onModeloChange($event)">
+            <option *ngFor="let modelo of modelosLlmDisponibles" [value]="modelo.id">{{ modelo.nombreTecnico }}</option>
+        </select>
+    </div>
+    <div class="form-elemnt">
+        System Prompt:
+        <textarea class="form-control" rows="5" maxlength="2000" [(ngModel)]="datasetModificado.systemPrompt"></textarea>
+    </div>
+</div>  
+<div class="modal-ajustes-footer">
+    <div class="modal-ajustes-btns">
+        <button class="btn btn-secondary" (click)="onCerrarModal()">Cerrar</button>
+        <button class="btn btn-primary" (click)="onGuardarCambios()">Guardar cambios</button>
+    </div>
+</div>

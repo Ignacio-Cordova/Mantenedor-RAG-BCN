@@ -1,0 +1,24 @@
+<div class="form-container" >                   
+    <div class="form-elemnt">
+        <label>Nombre Proveedor</label>
+        <input type="text" class="form-control" maxlength="100" [value]="apiSeleccionada.nombreProveedor" *ngIf="apiSeleccionada" [(ngModel)]="apiSeleccionada.nombreProveedor" required>
+        <span *ngIf="!apiSeleccionada.nombreProveedor" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <label>Base URL</label>
+        <input type="text" class="form-control" maxlength="500" [value]="apiSeleccionada.baseUrl" *ngIf="apiSeleccionada" [(ngModel)]="apiSeleccionada.baseUrl">
+        <span *ngIf="!apiSeleccionada.baseUrl" class="text-danger">Este campo es obligatorio</span>
+    </div>
+    <div class="form-elemnt">
+        <label>Organización ID</label>
+        <input type="text" class="form-control" maxlength="100" [value]="apiSeleccionada.organizacionId" *ngIf="apiSeleccionada" [(ngModel)]="apiSeleccionada.organizacionId">
+    </div>
+    <div class="form-elemnt">
+        <label>Tipo Autenticación</label>
+        <input type="text" class="form-control" maxlength="100" [value]="apiSeleccionada.tipoAutenticacion" *ngIf="apiSeleccionada" [(ngModel)]="apiSeleccionada.tipoAutenticacion">
+    </div>
+    <div class="form-elemnt">
+        <label>API KEY ENCRIPTADA</label>
+        <input type="text" class="form-control" maxlength="500" [value]="apiSeleccionada.apiKeyEncriptada" *ngIf="apiSeleccionada" [(ngModel)]="apiSeleccionada.apiKeyEncriptada">
+    </div>
+</div>
